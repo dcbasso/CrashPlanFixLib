@@ -18,7 +18,7 @@ fixLibIssue() {
     cd "$crashplanNlibInstallFolder" || exit
     cp "$libFilename" .
     chmod 744 *
-    if [ -f "$crashplanNlibInstallFolder/$libFilename" ]; then
+    if [ -f "$crashplanNlibInstallFolder/$libName" ]; then
         echo "Lib fixed with sucess..."
     else 
         echo "Could not fix lib issue, please check the process..."
@@ -41,8 +41,8 @@ downloadAndProcessFile() {
         $(tar -xf $crashPlanFile $tgzCpiFile)
         $(gzip -dc "$tgzCpiFile" | cpio -i)
         shopt -s extglob
-        $(rm -rf !("$cpiFile"|"nlib"|"fix_code42.sh"))
-        libFilename="$(pwd)/nlib/$libUbuntuFolder/$libUbuntuFolder/libuaw.so"
+        $(rm -rf !("$cpiFile"|"nlib"|"fix_code42.sh"|"$crashPlanFile"))
+        libFilename="$(pwd)/nlib/$libUbuntuFolder/$libName"
         echo "Unpaking finished..."
     fi
 }
@@ -65,6 +65,7 @@ tgzCpiFile="$tgzCodeInstall$cpiFile"
 libUbuntuFolder="ubuntu18"
 crashplanInstallFolder="/usr/local/crashplan/"
 crashplanNlibInstallFolder="$crashplanInstallFolder/nlib"
+libName="libuaw.so"
 serviceFolder="$crashplanInstallFolder/bin/"
 
 process
