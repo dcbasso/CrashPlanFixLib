@@ -3,6 +3,9 @@
 #Author: Dante Basso
 #Github: https://github.com/dcbasso
 
+#Thanks to:
+#https://www.reddit.com/r/Crashplan/comments/upjjk3/fix_v10_fix_login_issue_missing_libuawso/
+
 stopService() {
     echo "stoping service..."
    "$serviceFolder"/service.sh stop
@@ -28,22 +31,28 @@ fixLibIssue() {
 downloadAndProcessFile() {
     echo "Validating Download..."
 
-    if [ -f "$crashPlanFile" ]; 
+    if [[ -d "nlib" ]];
     then
         echo "Download not necessary..."
     else
-        echo "Downloading Crashplan/code42 tar.gz..."
-        curl "$crashPlanUrlDownload" -o "$crashPlanFile"
-    fi
-    if [ ! -d "$tgzCodeInstall" ]; 
-    then
-        echo "Unpaking..."
-        $(tar -xf $crashPlanFile $tgzCpiFile)
-        $(gzip -dc "$tgzCpiFile" | cpio -i)
-        shopt -s extglob
-        $(rm -rf !("$cpiFile"|"nlib"|"fix_code42.sh"|"$crashPlanFile"))
-        libFilename="$(pwd)/nlib/$libUbuntuFolder/$libName"
-        echo "Unpaking finished..."
+        if [[ -f "$crashPlanFile" ]]; 
+        then
+            echo "Download not necessary..."
+        else
+            echo "Downloading Crashplan/code42 tar.gz..."
+            curl "$crashPlanUrlDownload" -o "$crashPlanFile"
+        fi
+
+        if [ ! -d "$tgzCodeInstall" ]; 
+        then
+            echo "Unpaking..."
+            $(tar -xf $crashPlanFile $tgzCpiFile)
+            $(gzip -dc "$tgzCpiFile" | cpio -i)
+            shopt -s extglob
+            $(rm -rf !("$cpiFile"|"nlib"|"fix_code42.sh"|"$crashPlanFile"))
+            libFilename="$(pwd)/nlib/$libUbuntuFolder/$libName"
+            echo "Unpaking finished..."
+        fi
     fi
 }
 
