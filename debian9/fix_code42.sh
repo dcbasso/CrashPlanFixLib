@@ -66,10 +66,10 @@ process() {
 }
 
 # currentFolder=$(pwd)
-crashPlanUrlDownload="https://download.code42.com/installs/agent/cloud/10.0.0/303/install/CrashPlanSmb_10.0.0_15252000061000_303_Linux.tgz"
+crashPlanUrlDownload="https://download.crashplan.com/installs/agent/latest-smb-linux.tgz"
 crashPlanFile="crashplan.tgz"
 tgzCodeInstall="code42-install/"
-cpiFile="CrashPlanSmb_10.0.0.cpi"
+cpiFile="CrashPlanSmb_11.0.1.cpi"
 tgzCpiFile="$tgzCodeInstall$cpiFile"
 libUbuntuFolder="ubuntu18"
 crashplanInstallFolder="/usr/local/crashplan/"
